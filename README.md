@@ -7,13 +7,25 @@ This repo aims to provision Production and development kubernetes clusters.
 
 ### Production
 
+#### Provision
+
 ```bash
-./run.sh provision-prod
+./run.sh provision --env prod
 ```
 
 ### Dev
 ```bash
-./run.sh provision-dev
+./run.sh provision --env dev
 ```
 
+#### Destroy Provision
+
+```bash
+./run.sh destroy --env prod
+```
+
+### Dev
+```bash
+./run.sh destroy --env dev
+```
 
