@@ -66,11 +66,11 @@ provider "kubectl" {
   token = data.google_client_config.primary.access_token
 }
 
-data "kubectl_filename_list" "manifests" {
-  pattern = "./manifests/*.yaml"
+data "external" "kustomize_data" {
+
+  program = ["bash", "-c", "KUSTOMIZE_DATA=$(kubectl kustomize manifests/env/provision) && jq -n --arg kdata \"$KUSTOMIZE_DATA\" '{\"data\":$kdata}'"]
 }
 
 resource "kubectl_manifest" "test" {
-  count     = length(data.kubectl_filename_list.manifests.matches)
-  yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
+  yaml_body = data.external.kustomize_data.result.data
 }
