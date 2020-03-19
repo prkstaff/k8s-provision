@@ -6,7 +6,9 @@ destroy_prod () {
 }
 
 destroy_dev () {
-	terraform destroy scripts/terraform/gke_cluster
+  cd scripts/terraform/gke_cluster
+  terraform init
+	terraform destroy
 }
 
 case $1 in

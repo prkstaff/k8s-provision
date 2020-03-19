@@ -12,6 +12,7 @@ provider "google" {
   zone        = "us-central1-a"
 }
 
+
 resource "google_container_cluster" "primary" {
   name     = "developer-provision-terraform-${random_string.random_cluster_id.result}x"
   location = "us-central1"
@@ -27,12 +28,13 @@ resource "google_container_cluster" "primary" {
     password = ""
 
     client_certificate_config {
-      issue_client_certificate = true
+      issue_client_certificate = false
     }
   }
+
 }
 
-resource "google_container_node_pool" "primary_preemptible_nodes" {
+resource "google_container_node_pool" "cluster_node_pool" {
   name       = "my-node-pool"
   location   = "us-central1"
   cluster    = google_container_cluster.primary.name
@@ -53,19 +55,22 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   }
 }
 
+data "google_client_config" "primary" {}
+
 provider "kubectl" {
-  load_config_file       = false
-  host                   = google_container_cluster.primary.endpoint
-  client_certificate = base64decode(google_container_cluster.primary.master_auth.0.client_certificate)
-  client_key = base64decode(google_container_cluster.primary.master_auth.0.client_key)
-  cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth.0.cluster_ca_certificate)
+  load_config_file = false
+  cluster_ca_certificate = base64decode(
+    google_container_cluster.primary.master_auth[0].cluster_ca_certificate,
+  )
+  host  = google_container_cluster.primary.endpoint
+  token = data.google_client_config.primary.access_token
 }
 
 data "kubectl_filename_list" "manifests" {
-    pattern = "./manifests/*.yaml"
+  pattern = "./manifests/*.yaml"
 }
 
 resource "kubectl_manifest" "test" {
-    count = length(data.kubectl_filename_list.manifests.matches)
-    yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
+  count     = length(data.kubectl_filename_list.manifests.matches)
+  yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
 }
