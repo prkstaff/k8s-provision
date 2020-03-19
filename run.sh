@@ -69,7 +69,7 @@ then
       exit 2
       ;;
   esac
- Provision with --env passed
+ # Provision with --env passed
 elif [ "$selected_environment" != "" ] && [ $run_destroy == true ];
 then
   case $selected_environment in

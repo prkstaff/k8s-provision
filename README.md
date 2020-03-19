@@ -1,7 +1,12 @@
+
 # k8s-provision
 Wellcome to Jeitto K8S provision Repo
 
 This repo aims to provision Production and development kubernetes clusters.
+
+# Requirements
+- Unix System
+- Terraform > v11
 
 ## Setting up environments
 

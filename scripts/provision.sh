@@ -6,8 +6,9 @@ provision_prod () {
 }
 
 provision_dev () {
-	terraform init
-	terraform apply scripts/terraform/gke_cluster
+  cd scripts/terraform/gke_cluster
+  terraform init
+	terraform apply
 }
 
 case $1 in

@@ -6,7 +6,7 @@ resource "random_string" "random_cluster_id" {
 }
 
 provider "google" {
-  credentials = file("scripts/terraform/account.json")
+  credentials = file("../account.json")
   project     = "jeitto-workshop"
   region      = "us-central1"
   zone        = "us-central1-a"
@@ -27,7 +27,7 @@ resource "google_container_cluster" "primary" {
     password = ""
 
     client_certificate_config {
-      issue_client_certificate = false
+      issue_client_certificate = true
     }
   }
 }
@@ -51,4 +51,21 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
+}
+
+provider "kubectl" {
+  load_config_file       = false
+  host                   = google_container_cluster.primary.endpoint
+  client_certificate = base64decode(google_container_cluster.primary.master_auth.0.client_certificate)
+  client_key = base64decode(google_container_cluster.primary.master_auth.0.client_key)
+  cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth.0.cluster_ca_certificate)
+}
+
+data "kubectl_filename_list" "manifests" {
+    pattern = "./manifests/*.yaml"
+}
+
+resource "kubectl_manifest" "test" {
+    count = length(data.kubectl_filename_list.manifests.matches)
+    yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
 }
