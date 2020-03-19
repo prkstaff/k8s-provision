@@ -9,3 +9,7 @@ output "cluster_name" {
 output "kustomize_data" {
   value = data.external.kustomize_data.result.data
 }
+
+output "Connect_to_gke_cluster" {
+  value = "gcloud container clusters get-credentials developer-provision-terraform-${random_string.random_cluster_id.result}x --region ${var.region} --project ${var.project}"
+}

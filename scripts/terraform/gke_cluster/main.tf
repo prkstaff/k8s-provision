@@ -7,15 +7,15 @@ resource "random_string" "random_cluster_id" {
 
 provider "google" {
   credentials = file("../account.json")
-  project     = "jeitto-workshop"
-  region      = "us-central1"
-  zone        = "us-central1-a"
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
 }
 
 
 resource "google_container_cluster" "primary" {
   name     = "developer-provision-terraform-${random_string.random_cluster_id.result}x"
-  location = "us-central1"
+  location = var.region
 
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
@@ -36,7 +36,7 @@ resource "google_container_cluster" "primary" {
 
 resource "google_container_node_pool" "cluster_node_pool" {
   name       = "my-node-pool"
-  location   = "us-central1"
+  location   = var.region
   cluster    = google_container_cluster.primary.name
   node_count = 1
 
