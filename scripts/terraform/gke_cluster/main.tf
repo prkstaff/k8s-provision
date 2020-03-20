@@ -54,11 +54,11 @@ resource "google_container_node_pool" "cluster_node_pool" {
   name       = "my-node-pool"
   location   = var.region
   cluster    = google_container_cluster.primary.name
-  node_count = 1
+  node_count = 4
 
   node_config {
     preemptible  = false
-    machine_type = "n1-standard-2"
+    machine_type = "n1-standard-1"
 
     metadata = {
       disable-legacy-endpoints = "true"
