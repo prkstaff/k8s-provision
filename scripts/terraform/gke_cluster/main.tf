@@ -10,13 +10,29 @@ provider "google" {
   project     = var.project
   region      = var.region
   zone        = var.zone
+  version     = "~> 3.0.0-beta.1"
+}
+
+provider "google-beta" {
+  credentials = file("../account.json")
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
 }
 
 
 resource "google_container_cluster" "primary" {
+  provider = google-beta
   name     = "developer-provision-terraform-${random_string.random_cluster_id.result}x"
   location = var.region
 
+  addons_config {
+    istio_config {
+      disabled = false
+    }
+  }
+
+  node_locations = [var.zone]
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
@@ -42,7 +58,7 @@ resource "google_container_node_pool" "cluster_node_pool" {
 
   node_config {
     preemptible  = false
-    machine_type = "n1-standard-1"
+    machine_type = "n1-standard-2"
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -53,6 +69,15 @@ resource "google_container_node_pool" "cluster_node_pool" {
       "https://www.googleapis.com/auth/monitoring",
     ]
   }
+}
+
+resource "google_dns_record_set" "a" {
+  name         = "api.${random_string.random_cluster_id.result}x.${var.dns_name}."
+  managed_zone = var.dns_zone
+  type         = "A"
+  ttl          = 300
+
+  rrdatas = [google_container_cluster.primary.endpoint]
 }
 
 data "google_client_config" "primary" {}
