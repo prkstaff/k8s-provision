@@ -71,13 +71,18 @@ resource "google_container_node_pool" "cluster_node_pool" {
   }
 }
 
+data "external" "istio_ingress_gateway_ip" {
+
+  program = ["bash", "-c", "INGRESS_IP=$(./scripts/get_ingress_gateway_ip.sh ${random_string.random_cluster_id.result} ${var.region} ${var.project}) && jq -n --arg kdata \"$INGRESS_IP\" '{\"data\":$kdata}'"]
+}
+
 resource "google_dns_record_set" "a" {
   name         = "api.${random_string.random_cluster_id.result}x.${var.dns_name}."
   managed_zone = var.dns_zone
   type         = "A"
   ttl          = 300
 
-  rrdatas = [google_container_cluster.primary.endpoint]
+  rrdatas = [data.external.istio_ingress_gateway_ip.result.data]
 }
 
 data "google_client_config" "primary" {}
