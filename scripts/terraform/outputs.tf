@@ -3,10 +3,10 @@ output "cluster_name" {
 }
 
 output "Connect_to_gke_cluster" {
-  value = "gcloud container clusters get-credentials developer-provision-terraform-${random_string.random_cluster_id.result}x --region ${var.region} --project ${var.project}"
+  value = "gcloud container clusters get-credentials developer-provision-terraform-${random_string.random_cluster_id.result}x --region ${module.gke_cluster.region} --project ${module.gke_cluster.project}"
 }
 
 output "Endpoint_DNS" {
-  value = "api.${random_string.random_cluster_id.result}x.${var.dns_name}."
+  value = "api.${random_string.random_cluster_id.result}x.${module.kustomize_manifests.dns_name}."
 
 }

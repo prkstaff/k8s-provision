@@ -6,7 +6,7 @@ CLUSTER_RUNNING=false
 
 # Wait cluster be READY
 while [ $CLUSTER_RUNNING = false ]; do
-  >&2 echo "Inside Wair Cluster be Ready Loop"
+  >&2 echo "Inside loop Waiting Cluster be Ready Loop"
   STATUS=$(gcloud container clusters describe developer-provision-terraform-${ID}x  --project=$3 --zone $2 --format json | jq '.nodePools[0].status')
   if [[ "$STATUS" = *"RUNNING"* ]]; then
     >&2 echo "Cluster State Running"
@@ -27,7 +27,7 @@ while [ $GOT_INGRESS_IP = false ]
 do
   >&2 echo "Inside Kubectl get svc ip."
   INGRESS_IP=$(kubectl get svc istio-ingressgateway -n istio-system | grep LoadBalancer | awk '{print $4}')
-  if [ $INGRESS_IP = "" ] || [ $INGRESS_IP = "<none>" ]; then
+  if [ $INGRESS_IP = "" ] || [ $INGRESS_IP = "<none>" ] || [ $INGRESS_IP = "<pending>" ] ; then
     >&2 echo "Waiting ip to be available"
     sleep 1m
   else
