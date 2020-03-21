@@ -6,7 +6,7 @@ resource "random_string" "random_cluster_id" {
 }
 
 provider "google" {
-  credentials = file("../account.json")
+  credentials = file("account.json")
   project     = var.project
   region      = var.region
   zone        = var.zone
@@ -14,7 +14,7 @@ provider "google" {
 }
 
 provider "google-beta" {
-  credentials = file("../account.json")
+  credentials = file("account.json")
   project     = var.project
   region      = var.region
   zone        = var.zone

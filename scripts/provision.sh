@@ -6,7 +6,7 @@ provision_prod () {
 }
 
 provision_dev () {
-  cd scripts/terraform/gke_cluster
+  cd scripts/terraform/
   terraform init
 	terraform apply
 }
