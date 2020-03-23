@@ -27,7 +27,7 @@ while [ $GOT_INGRESS_IP = false ]
 do
   echo "Inside Kubectl get svc ip." >> get_ingress_gateway_ip.log
   INGRESS_IP=$(kubectl get svc istio-ingressgateway -n istio-system | grep LoadBalancer | awk '{print $4}')
-  if [ $INGRESS_IP = "" ] || [ $INGRESS_IP = "<none>" ] || [ $INGRESS_IP = "<pending>" ] ; then
+  if [ -z $INGRESS_IP ] || [ $INGRESS_IP = "<none>" ] || [ $INGRESS_IP = "<pending>" ] ; then
     echo "Waiting ip to be available" >> get_ingress_gateway_ip.log
     sleep 1m
   else

@@ -8,7 +8,6 @@ resources:
   - cluster_role_binding.yaml
   - jaegertracing.io_jaegers_crd.yaml
   - operator.yaml
-  - role.yaml
-  - role_binding.yaml
   - service_account.yaml
   - namespace.yaml
+  - instance.yaml

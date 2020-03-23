@@ -12,6 +12,13 @@ spec:
       labels:
         name: jaeger-operator
     spec:
+      strategy: production
+      collector:
+          maxReplicas: 5
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
       serviceAccountName: jaeger-operator
       containers:
       - name: jaeger-operator
@@ -23,9 +30,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: WATCH_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
+          value: ""
         - name: POD_NAME
           valueFrom:
             fieldRef:
