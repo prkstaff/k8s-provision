@@ -1,18 +1,18 @@
 #!/bin/bash - 
 
->&2 echo "Get Ingress Gateway IP script running."
+echo "Get Ingress Gateway IP script running." > get_ingress_gateway_ip.log
 ID=$1
 CLUSTER_RUNNING=false
 
 # Wait cluster be READY
 while [ $CLUSTER_RUNNING = false ]; do
-  >&2 echo "Inside loop Waiting Cluster be Ready Loop"
+  echo "Inside loop Waiting Cluster be Ready Loop" >> get_ingress_gateway_ip.log
   STATUS=$(gcloud container clusters describe developer-provision-terraform-${ID}x  --project=$3 --zone $2 --format json | jq '.nodePools[0].status')
   if [[ "$STATUS" = *"RUNNING"* ]]; then
-    >&2 echo "Cluster State Running"
+    echo "Cluster State Running" >> get_ingress_gateway_ip.log
     CLUSTER_RUNNING=true
   else
-    >&2 echo "Cluster not running yet."
+    echo "Cluster not running yet." >> get_ingress_gateway_ip.log
     sleep 1m
   fi
 done
@@ -25,15 +25,16 @@ source ./scripts/connect_to_cluster.sh "$@"
 # Wait IP be ready
 while [ $GOT_INGRESS_IP = false ] 
 do
-  >&2 echo "Inside Kubectl get svc ip."
+  echo "Inside Kubectl get svc ip." >> get_ingress_gateway_ip.log
   INGRESS_IP=$(kubectl get svc istio-ingressgateway -n istio-system | grep LoadBalancer | awk '{print $4}')
   if [ $INGRESS_IP = "" ] || [ $INGRESS_IP = "<none>" ] || [ $INGRESS_IP = "<pending>" ] ; then
-    >&2 echo "Waiting ip to be available"
+    echo "Waiting ip to be available" >> get_ingress_gateway_ip.log
     sleep 1m
   else
-    >&2 echo "Got Ingress Gateway IP"
+    echo "Got Ingress Gateway IP" >> get_ingress_gateway_ip.log
     GOT_INGRESS_IP=true
+    echo $INGRESS_IP >> get_ingress_gateway_ip.log
   fi
 done
->&2 echo "Printing Ingress LB IP"
+echo "Printing Ingress LB IP" >> get_ingress_gateway_ip.log
 echo $INGRESS_IP

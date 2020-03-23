@@ -7,6 +7,8 @@ This repo aims to provision Production and development kubernetes clusters.
 # Requirements
 - Unix System
 - Terraform > v11
+- jq
+- python3
 
 ## Setting up environments
 
@@ -32,5 +34,14 @@ This repo aims to provision Production and development kubernetes clusters.
 ### Dev
 ```bash
 ./run.sh destroy --env dev
+```
+
+
+#### Known Issues:
+google: could not find default credentials
+
+solution:
+```
+gcloud auth application-default login
 ```
 

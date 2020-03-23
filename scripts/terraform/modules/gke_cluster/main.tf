@@ -43,6 +43,8 @@ resource "google_container_cluster" "primary" {
 
 }
 
+data "google_client_config" "primary" {}
+
 resource "google_container_node_pool" "cluster_node_pool" {
   name       = "my-node-pool"
   location   = var.region

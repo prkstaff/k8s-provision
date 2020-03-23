@@ -10,3 +10,6 @@ output "Endpoint_DNS" {
   value = "api.${random_string.random_cluster_id.result}x.${module.kustomize_manifests.dns_name}."
 
 }
+output "Ingress_Gateway_IP" {
+  value = module.kustomize_manifests.istio_ingress_gateway_ip
+}
