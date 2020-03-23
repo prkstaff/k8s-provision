@@ -33,7 +33,7 @@ do
   else
     echo "Got Ingress Gateway IP" >> get_ingress_gateway_ip.log
     GOT_INGRESS_IP=true
-    echo $INGRESS_IP >> get_ingress_gateway_ip.log
+    echo "X${INGRESS_IP}X" >> get_ingress_gateway_ip.log
   fi
 done
 echo "Printing Ingress LB IP" >> get_ingress_gateway_ip.log
