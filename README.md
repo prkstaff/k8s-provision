@@ -9,6 +9,8 @@ This repo aims to provision Production and development kubernetes clusters.
 - Terraform > v11
 - jq
 - python3
+- kubectl
+- istioctl
 
 ## Setting up environments
 
@@ -36,6 +38,13 @@ This repo aims to provision Production and development kubernetes clusters.
 ./run.sh destroy --env dev
 ```
 
+## Acessing Dashboards
+Istioctl dashboard <dashboard-name>
+
+names:
+- grafana
+- prometheus
+- jaeger
 
 #### Known Issues:
 google: could not find default credentials
