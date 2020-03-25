@@ -1,6 +1,5 @@
 bases:
   - ../../base
-  - ../../base-jaeger
 
 patchesStrategicMerge:
   - namespace.yaml

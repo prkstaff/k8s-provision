@@ -15,15 +15,10 @@ provider "google-beta" {
 
 
 resource "google_container_cluster" "primary" {
-  provider = google-beta
-  name     = "developer-provision-terraform-${var.random_cluster_id}x"
-  location = var.region
-
-  addons_config {
-    istio_config {
-      disabled = false
-    }
-  }
+  provider           = google-beta
+  name               = "developer-provision-terraform-${var.random_cluster_id}x"
+  location           = var.region
+  min_master_version = "1.15.9-gke.24"
 
   node_locations = [var.zone]
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -63,6 +58,9 @@ resource "google_container_node_pool" "cluster_node_pool" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
+  }
+  provisioner "local-exec" {
+    command = "./scripts/connect_to_cluster.sh ${var.random_cluster_id} ${var.region} ${var.project} && istioctl manifest apply --set profile=demo --skip-confirmation --set values.pilot.traceSampling=1.0"
   }
 }
 
