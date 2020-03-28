@@ -2,6 +2,7 @@ from flask import Flask
 import logging
 import sys
 import os
+import json
 
 # Logging
 logger = logging.getLogger('flask')
@@ -13,3 +14,10 @@ logger.addHandler(sh)
 # App
 app = Flask(__name__)
 
+try:
+    with open("data.json", 'r') as f:
+        data = json.load(f)
+except IOError:
+    print("File not accessible")
+finally:
+    f.close()
