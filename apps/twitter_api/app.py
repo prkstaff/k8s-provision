@@ -34,9 +34,15 @@ def get_posts():
                     if len(data_copy['users'][user_index]['posts']) == 0:
                         del data_copy['users'][user_index]
         return Response(json.dumps(data_copy), status=200, mimetype="application/json")
+    if "lang" in request.args:
+        for user_index, user_value in reversed(list(enumerate(data['users']))):
+            if user_value['language'] != request.args.get('lang'):
+                del data_copy['users'][user_index]
+        return Response(json.dumps(data_copy), status=200, mimetype="application/json")
     elif len(request.args) > 0:
         return Response("", status=501, mimetype='application/json')
     return Response("", status=422, mimetype='application/json')
+
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1')

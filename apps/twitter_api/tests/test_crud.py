@@ -29,8 +29,8 @@ class TestCrud(unittest.TestCase):
         # from 01 jul 2016 20:00 to 21:00:00
         response = self.client.get("/post?from=1467414000&to=1467417600")
         data = json.loads(response.data.decode())
-        expected_data = 1
-        self.assertEqual(len(data['users']), expected_data)
+        expected_n_of_users = 1
+        self.assertEqual(len(data['users']), expected_n_of_users)
 
     def test_get_posts_empty_response(self):
         # emoty response if receives different filter
@@ -43,10 +43,10 @@ class TestCrud(unittest.TestCase):
         self.check_app_json_and_status_code(response2, 422)
 
     def test_get_total_post_by_language(self):
-        response = self.client.get("/post?lang=pt-br")
-        data = response.data.decode()
-        total_br_posts = 10
-        self.assertEqual(len(data), total_br_posts)
+        response = self.client.get("/post?lang=en")
+        data = json.loads(response.data.decode())
+        expected_n_of_users = 5
+        self.assertEqual(len(data['users']), expected_n_of_users)
 
     def tearDown(self):
         pass
