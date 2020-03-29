@@ -15,8 +15,8 @@ class TestCrud(unittest.TestCase):
     def test_get_users_order_by_followers(self):
         response = self.client.get("/user?order=followers")
         self.check_app_json_and_status_code(response, 200)
-        data = response.data.decode()
-        self.assertEqual(len(data[0]["followers"], 4))
+        data = json.loads(response.data.decode())
+        self.assertEqual(len(data['users'][0]["followers"]), 4)
 
     def test_get_total_posts_by_given_hour(self):
         response = self.client.get("/post?from=time&to=time")
