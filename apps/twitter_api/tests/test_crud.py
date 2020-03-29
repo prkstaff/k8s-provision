@@ -21,9 +21,8 @@ class TestCrud(unittest.TestCase):
     def test_get_users_empty_response(self):
         # emoty response if receives different filter
         response = self.client.get("/user?unknow=followers")
-        self.check_app_json_and_status_code(response, 204)
-        data = response.data.decode()
-        self.assertEqual(data, "")
+        # 422 for Unprocessable Entity (unknow arg)
+        self.check_app_json_and_status_code(response, 422)
 
     def test_get_total_posts_by_given_hour(self):
         #"E MMM d y hh:mm:ss "
@@ -36,17 +35,14 @@ class TestCrud(unittest.TestCase):
     def test_get_posts_empty_response(self):
         # emoty response if receives different filter
         response = self.client.get("/post?unknow=filter")
-        self.check_app_json_and_status_code(response, 204)
-        data = response.data.decode()
-        self.assertEqual(data, "")
+        # 501 for not implemented
+        self.check_app_json_and_status_code(response, 501)
 
         response2 = self.client.get("/post")
-        self.check_app_json_and_status_code(response2, 204)
-        data2 = response2.data.decode()
-        self.assertEqual(data2, "")
+        # 422 for Unprocessable Entity (unknow arg)
+        self.check_app_json_and_status_code(response2, 422)
 
-
-    def test_get_total_post_post_by_language(self):
+    def test_get_total_post_by_language(self):
         response = self.client.get("/post?lang=pt-br")
         data = response.data.decode()
         total_br_posts = 10

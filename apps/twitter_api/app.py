@@ -17,8 +17,7 @@ def get_users():
         response_data = data['users']
         return Response(
             response_data, status=200, mimetype='application/json')
-    return Response(
-        json.dumps({}), status=204, mimetype='application/json')
+    return Response("", status=422, mimetype='application/json')
 
 @app.route('/post', methods=['GET'])
 def get_posts():
@@ -35,8 +34,9 @@ def get_posts():
                     if len(data_copy['users'][user_index]['posts']) == 0:
                         del data_copy['users'][user_index]
         return Response(json.dumps(data_copy), status=200, mimetype="application/json")
-    return Response(
-        json.dumps({}), status=204, mimetype='application/json')
+    elif len(request.args) > 0:
+        return Response("", status=501, mimetype='application/json')
+    return Response("", status=422, mimetype='application/json')
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1')
