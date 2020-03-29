@@ -19,16 +19,32 @@ class TestCrud(unittest.TestCase):
         self.assertEqual(len(data['users'][0]["followers"]), 4)
 
     def test_get_users_empty_response(self):
+        # emoty response if receives different filter
         response = self.client.get("/user?unknow=followers")
         self.check_app_json_and_status_code(response, 204)
         data = response.data.decode()
         self.assertEqual(data, "")
 
     def test_get_total_posts_by_given_hour(self):
-        response = self.client.get("/post?from=time&to=time")
+        #"E MMM d y hh:mm:ss "
+        # from 01 jul 2016 20:00 to 21:00:00
+        response = self.client.get("/post?from=1467414000&to=1467417600")
+        data = json.loads(response.data.decode())
+        expected_data = 1
+        self.assertEqual(len(data['users']), expected_data)
+
+    def test_get_posts_empty_response(self):
+        # emoty response if receives different filter
+        response = self.client.get("/post?unknow=filter")
+        self.check_app_json_and_status_code(response, 204)
         data = response.data.decode()
-        provisioned_data = 10
-        self.assertEqual(len(data), provisioned_data)
+        self.assertEqual(data, "")
+
+        response2 = self.client.get("/post")
+        self.check_app_json_and_status_code(response2, 204)
+        data2 = response2.data.decode()
+        self.assertEqual(data2, "")
+
 
     def test_get_total_post_post_by_language(self):
         response = self.client.get("/post?lang=pt-br")

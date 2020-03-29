@@ -1,7 +1,9 @@
 from flask import jsonify, Response, request
 from settings import app
 import json
+from datetime import datetime
 from settings import data
+from copy import deepcopy
 
 @app.route('/user', methods=['GET'])
 def get_users():
@@ -15,6 +17,24 @@ def get_users():
         response_data = data['users']
         return Response(
             response_data, status=200, mimetype='application/json')
+    return Response(
+        json.dumps({}), status=204, mimetype='application/json')
+
+@app.route('/post', methods=['GET'])
+def get_posts():
+    data_copy = deepcopy(data)
+    if "from" in request.args and "to" in request.args:
+        from_time = datetime.fromtimestamp(int(request.args.get("from")))
+        to_time = datetime.fromtimestamp(int(request.args.get("to")))
+        for user_index, user_value in reversed(list(enumerate(data['users']))):
+            for post_index, post_value in reversed(list(enumerate(data['users'][user_index]['posts']))):
+                post_date = post_value['date'].split(" GMT")[0]
+                post_date = datetime.strptime(post_date, "%a %b %d %Y %H:%M:%S")
+                if not from_time < post_date < to_time:
+                    del data_copy['users'][user_index]['posts'][post_index]
+                    if len(data_copy['users'][user_index]['posts']) == 0:
+                        del data_copy['users'][user_index]
+        return Response(json.dumps(data_copy), status=200, mimetype="application/json")
     return Response(
         json.dumps({}), status=204, mimetype='application/json')
 
