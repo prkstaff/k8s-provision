@@ -22,6 +22,7 @@ This project expose twitter data:
 - kubectl
 - istioctl
 - GCP service account key
+- An account in Google Cloud with access to this project
 
 ## Setting Up GCP Service Account Key
 Ask the System Administrator for the service account key and place it at
@@ -75,12 +76,20 @@ solution:
 gcloud auth application-default login
 ```
 
-- doc do projeto
+## Logging
+You can see the logs in google cloud platform:
+
+Navigate do stackdriver loggin (page)[https://console.cloud.google.com/logs/viewer]
+
+Use the dropdown to select Kubernetes Container > Cluster Name > Namespace > Container Name
+
+
+O logging pode ser acessado 
+## Faltando documentar:
+- doc da arquitetura
 - doc das apis
   - print postman
   - adicionar collection postman
-- doc da arquitetura
-- doc de como subir o ambiente
 - prints de logs:
   - stackdriver logging
   - dashboard grafana

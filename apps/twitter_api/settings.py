@@ -3,13 +3,17 @@ import logging
 import sys
 import os
 import json
+from log import StackdriverJsonFormatter
 
 # Logging
-logger = logging.getLogger('flask')
-sh = logging.StreamHandler(sys.stdout)
+handler = logging.StreamHandler(sys.stdout)
+formatter = StackdriverJsonFormatter()
+handler.setFormatter(formatter)
+logger = logging.getLogger()
+logger.addHandler(handler)
 logger_level = logging.DEBUG if os.getenv("FLASK_ENV") == "development" else logging.INFO
 logger.setLevel(logger_level)
-logger.addHandler(sh)
+
 
 # App
 app = Flask(__name__)
