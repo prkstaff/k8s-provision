@@ -87,7 +87,7 @@ You can access Grafana Dashboard as described above and see, the services
 request per seconds, sizes, non 5XX stats and others metrics.
 ![Grafana 1](readme_pics/dashboard_grafana_1_non_500.png)
 ---
-![Grana 2](readme_pics/dashboard_grafana_2.png)
+![Grafana 2](readme_pics/dashboard_grafana_2.png)
 ---
 ![Grafana 3](readme_pics/dashboard_grafana_3.png)
 
@@ -103,6 +103,11 @@ You can see Tracing between services, by chronological order with Jaeger
 ---
 ![Jaeger 5](readme_pics/dashboard_jaeger_error.png)
 
+### Postman
+You can import postman collection using the file postman_collection.json
+
+![Postman Collection](readme_pics/postman.png)
+
 ## Known Issues:
 ### google: could not find default credentials
 
@@ -111,5 +116,3 @@ solution:
 gcloud auth application-default login
 ```
 
-## Faltando documentar:
-- print postman
