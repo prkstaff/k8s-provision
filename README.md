@@ -72,7 +72,7 @@ names:
 ## Logging
 You can see the logs in google cloud platform:
 
-Navigate do stackdriver loggin (page)[https://console.cloud.google.com/logs/viewer]
+Navigate do stackdriver loggin [page](https://console.cloud.google.com/logs/viewer)
 
 Use the dropdown to select Kubernetes Container > Cluster Name > Namespace > Container Name
 
