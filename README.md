@@ -1,8 +1,18 @@
 
 # k8s-provision
-Wellcome to Jeitto K8S provision Repo
+Wellcome to K8S provision Repo
 
-This repo aims to provision Production and development kubernetes clusters.
+## Infrastructure provision and Server Automation
+This repo aims to provision Kubernetes infrastructure and server automation for production and development environments.
+
+## Projects repository 
+Also contains projects inside /apps 
+
+### Twitter API 
+This project expose twitter data:
+- users ordered by followers
+- user posts in a given hour
+- user posts filtered by language and hashtags 
 
 # Requirements
 - Unix System
@@ -65,3 +75,13 @@ solution:
 gcloud auth application-default login
 ```
 
+- doc do projeto
+- doc das apis
+  - print postman
+  - adicionar collection postman
+- doc da arquitetura
+- doc de como subir o ambiente
+- prints de logs:
+  - stackdriver logging
+  - dashboard grafana
+  - dashboard istio
