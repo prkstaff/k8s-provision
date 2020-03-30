@@ -68,13 +68,6 @@ names:
 - prometheus
 - jaeger
 
-## Known Issues:
-### google: could not find default credentials
-
-solution:
-```
-gcloud auth application-default login
-```
 
 ## Logging
 You can see the logs in google cloud platform:
@@ -85,16 +78,43 @@ Use the dropdown to select Kubernetes Container > Cluster Name > Namespace > Con
 
 Stackdriver automatically  recognized log levels if formated like the examples bellow:
 ![error example](readme_pics/log_bookinfo_severity_error.png)
+---
 ![warning example](readme_pics/log_twitter_api_severity_warning.png)
 
+## Monitoring
+### Service Monitoring
+You can access Grafana Dashboard as described above and see, the services
+request per seconds, sizes, non 5XX stats and others metrics.
+![error example](readme_pics/dashboard_grafana_1_non_500.png)
+---
+![error example](readme_pics/dashboard_grafana_2.png)
+---
+![error example](readme_pics/dashboard_grafana_3.png)
 
-O logging pode ser acessado 
+### Tracing
+You can see Tracing between services, by chronological order with Jaeger
+![error example](readme_pics/dashboard_jaeger_flow.png)
+---
+![error example](readme_pics/dashboard_jaeger_index.png)
+---
+![error example](readme_pics/dashboard_jaeger_bookinfo.png)
+---
+![error example](readme_pics/dashboard_jaeger_twitter.png)
+---
+![error example](readme_pics/dashboard_jaeger_error.png)
+
+## Known Issues:
+### google: could not find default credentials
+
+solution:
+```
+gcloud auth application-default login
+```
+
 ## Faltando documentar:
 - doc da arquitetura
 - doc das apis
   - print postman
   - adicionar collection postman
-- prints de logs:
-  - stackdriver logging
   - dashboard grafana
   - dashboard istio
