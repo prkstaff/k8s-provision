@@ -85,23 +85,23 @@ Stackdriver automatically  recognized log levels if formated like the examples b
 ### Service Monitoring
 You can access Grafana Dashboard as described above and see, the services
 request per seconds, sizes, non 5XX stats and others metrics.
-![error example](readme_pics/dashboard_grafana_1_non_500.png)
+![Grafana 1](readme_pics/dashboard_grafana_1_non_500.png)
 ---
-![error example](readme_pics/dashboard_grafana_2.png)
+![Grana 2](readme_pics/dashboard_grafana_2.png)
 ---
-![error example](readme_pics/dashboard_grafana_3.png)
+![Grafana 3](readme_pics/dashboard_grafana_3.png)
 
 ### Tracing
 You can see Tracing between services, by chronological order with Jaeger
-![error example](readme_pics/dashboard_jaeger_flow.png)
+![Jaeger 1](readme_pics/dashboard_jaeger_flow.png)
 ---
-![error example](readme_pics/dashboard_jaeger_index.png)
+![Jaeger 2](readme_pics/dashboard_jaeger_index.png)
 ---
-![error example](readme_pics/dashboard_jaeger_bookinfo.png)
+![Jaeger 3](readme_pics/dashboard_jaeger_bookinfo.png)
 ---
-![error example](readme_pics/dashboard_jaeger_twitter.png)
+![Jaeger 4](readme_pics/dashboard_jaeger_twitter.png)
 ---
-![error example](readme_pics/dashboard_jaeger_error.png)
+![Jaeger 5](readme_pics/dashboard_jaeger_error.png)
 
 ## Known Issues:
 ### google: could not find default credentials
@@ -112,9 +112,4 @@ gcloud auth application-default login
 ```
 
 ## Faltando documentar:
-- doc da arquitetura
-- doc das apis
-  - print postman
-  - adicionar collection postman
-  - dashboard grafana
-  - dashboard istio
+- print postman
