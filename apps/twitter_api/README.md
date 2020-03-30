@@ -41,3 +41,15 @@ source venv/bin/activate
 ```bash
 nosetests
 ```
+## Docker
+
+### Building the image
+```
+docker build . -t case-interview-api
+```
+
+### Pushing the image
+```
+docker tag case-interview-api:<new-version>
+docker push <company-docker-hub-uri>/case-interview-api:<new-version>
+```

@@ -11,6 +11,11 @@ This repo aims to provision Production and development kubernetes clusters.
 - python3
 - kubectl
 - istioctl
+- GCP service account key
+
+## Setting Up GCP Service Account Key
+Ask the System Administrator for the service account key and place it at
+/scripts/terraform/account.json
 
 ## Setting up environments
 
