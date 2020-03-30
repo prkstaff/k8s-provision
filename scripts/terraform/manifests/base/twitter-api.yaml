@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: prkstaff/case-interview-api:0.0.1
+        image: prkstaff/case-interview-api:0.0.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

@@ -32,4 +32,3 @@ class StackdriverJsonFormatter(jsonlogger.JsonFormatter, object):
         del log_record['lineno']
 
 
-
