@@ -83,6 +83,10 @@ Navigate do stackdriver loggin (page)[https://console.cloud.google.com/logs/view
 
 Use the dropdown to select Kubernetes Container > Cluster Name > Namespace > Container Name
 
+Stackdriver automatically  recognized log levels if formated like the examples bellow:
+![error example](readme_pics/log_bookinfo_severity_error.png)
+![warning example](readme_pics/log_twitter_api_severity_warning.png)
+
 
 O logging pode ser acessado 
 ## Faltando documentar:
