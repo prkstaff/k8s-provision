@@ -1,18 +1,16 @@
-
 # k8s-provision
-Wellcome to K8S provision Repo
+this project aims primary two things:
+- Centralize projects configurations
+- empower the developers with a fully functional and isolated development enviroment with few commands.
 
-## Infrastructure provision and Server Automation
-This repo aims to provision Kubernetes infrastructure and server automation for production and development environments.
-
-## Projects repository 
-Also contains projects inside /apps 
-
-### Twitter API 
-This project expose twitter data:
+## Sample applications included
+### Twitter API
+This project configure in the kubernetes cluster a sample twitter api:
 - users ordered by followers
 - user posts in a given hour
 - user posts filtered by language and hashtags 
+### Bookinfo
+This project configure in the kubernetes cluster the Istio Bookinfo application that demonstrates the power of a service mesh
 
 # Requirements
 - Unix System
